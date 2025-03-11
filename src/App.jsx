@@ -6,6 +6,7 @@ function App() {
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [cards, setCards] = useState([]);
+  const [clickedId, setClickedId] = useState([]);
 
   useEffect(() => {
     console.log('useEffect');
@@ -48,8 +49,10 @@ function App() {
     }
   }
 
-  function onClick(clicked) {
-    if (!clicked) {
+  function onClick(id) {
+    if (!clickedId.includes(id)) {
+      setClickedId(clickedId.concat(id));
+
       setCurrentScore(currentScore + 1);
       const shuffledCards = shuffle(cards);
       setCards(shuffledCards);
@@ -59,6 +62,9 @@ function App() {
         setBestScore(currentScore);
       }
       setCurrentScore(0);
+
+      // Reset game
+      setClickedId([]);
     }
   }
 
